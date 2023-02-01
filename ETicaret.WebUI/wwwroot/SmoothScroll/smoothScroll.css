@@ -1,0 +1,19 @@
+﻿html {
+    scroll-behavior: smooth; /* Bu özellik ile scroll un haretetini biraz yavaşlatırız. Biz sayfamızın sağ altına bir yukarı oku eklemiştik, o oka tıklayınca sayfayı hızlı bir şekilde yukarıya konumlandırır. Fakat "html" e "scroll-behavior: smooth;" özelliğini uygularsak scroll daha yavaş yukarı çıkar. */
+}
+
+#backtotop {
+    position: fixed; /* scrol ile konum değiştirince de aynı yerde kalması için "position:fixed" dedik. */
+    bottom: 10px;
+    right: 10px;
+}
+
+    #backtotop i { /* "backtotop" id li etiketin altında ki "i" etiketine ulaş ve aşağıda ki css özelliklerini uygula dedik. */
+        color: #4d4d4d;
+        font-size: 45px;
+        transition: color .6s; /* 6 milisaniye de renk değişikliği olsun. */
+    }
+
+        #backtotop i:hover {
+            color: #1a0000;
+        }
