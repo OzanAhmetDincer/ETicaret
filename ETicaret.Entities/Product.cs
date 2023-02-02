@@ -2,7 +2,7 @@
 
 namespace ETicaret.Entities
 {
-    public class Post : IEntity
+    public class Product : IEntity
     {
         public int Id { get; set; }
 
