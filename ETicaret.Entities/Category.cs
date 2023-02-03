@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ETicaret.Entities
 {
@@ -11,17 +6,31 @@ namespace ETicaret.Entities
     {
         public int Id { get; set; }
 
-        [Display(Name = "Kategori Adı"), Required, StringLength(50)]
+        [Required(ErrorMessage = "{0} alanı boş geçilemez!"), Display(Name = "Kategori Adı"), StringLength(50)]
         public string Name { get; set; }
 
         [Display(Name = "Kategori Açıklaması"), DataType(DataType.MultilineText)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        [Display(Name = "Üst Kategorisi")]
+        [Display(Name ="Kategori Resmi"), StringLength(150)]
+        public string? Image { get; set; }
+
+        [Display(Name = "Ekleme Tarihi"), ScaffoldColumn(false)]
+        public DateTime? CreateDate { get; set; } = DateTime.Now;// eğer bu alan boş geçilirse eklenme zamanını sistemden otomatik al
+
+        [Display(Name ="Durum")]
+        public bool IsActive { get; set; }
+
+        [Display(Name ="Üst Menüde Göster")]
+        public bool IsTopMenu { get; set; }
+
+        [Display(Name = "Üst Kategori")]
         public int ParentId { get; set; }
 
-        [Display(Name = "Kategori Resmi")]
-        public string Image { get; set; }
+        [Display(Name = "Kategori Sıra No")]
+        public int OrderNo { get; set; }
+        public virtual ICollection<Product>? Products { get; set; }
+        
         
     }
 }

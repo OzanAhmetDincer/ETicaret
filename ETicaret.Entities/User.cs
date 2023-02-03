@@ -12,6 +12,9 @@ namespace ETicaret.Entities
         [Display(Name ="Soyad"), StringLength(50), Required(ErrorMessage ="{0} alanı boş geçilemez!")]
         public string SurName { get; set; }
 
+        [Display(Name = "Kullanıcı Adı"), StringLength(50), Required(ErrorMessage = "{0} alanı boş geçilemez!")]
+        public string UserName { get; set; }
+
         [Required(ErrorMessage = "{0} alanı boş geçilemez!"), EmailAddress, StringLength(50)]
         public string Email { get; set; }
 

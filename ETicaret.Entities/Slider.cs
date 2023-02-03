@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ETicaret.Entities
 {
@@ -12,13 +7,13 @@ namespace ETicaret.Entities
         public int Id { get; set; }
 
         [Display(Name ="Başlık"), StringLength(150)]
-        public string Name { get; set; }
+        public string? Title { get; set; }
 
-        [Display(Name = "Açıklama"), DataType(DataType.MultilineText), StringLength(250)]
-        public string Description { get; set; }
-        public string Link { get; set; }
+        [Display(Name = "Açıklama"), DataType(DataType.MultilineText), StringLength(500)]
+        public string? Description { get; set; }
+        public string? Link { get; set; }
 
-        [Display(Name ="Resim")]
-        public string Image { get; set; }
+        [Display(Name ="Resim"), StringLength(150)]
+        public string? Image { get; set; }
     }
 }
