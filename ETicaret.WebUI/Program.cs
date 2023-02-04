@@ -1,7 +1,19 @@
+using ETicaret.Data;
+using ETicaret.Data.Abstract;
+using ETicaret.Service.Abstract;
+using ETicaret.Service.Concrete;
+using NuGet.Protocol.Core.Types;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<DatabaseContext>();
+builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository));
+builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
+builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 

@@ -27,4 +27,8 @@
     <Folder Include="wwwroot\Img\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ETicaret.Service\ETicaret.Service.csproj" />
+  </ItemGroup>
+
 </Project>
