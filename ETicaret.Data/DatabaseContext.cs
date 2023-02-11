@@ -11,6 +11,11 @@ namespace ETicaret.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,6 +36,7 @@ namespace ETicaret.Data
                     IsAdmin = true,
                     Name = "admin",
                     SurName = "admin",
+                    UserName = "admin",
                     Password = "123"
                 }
                 );
