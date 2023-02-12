@@ -1,6 +1,7 @@
 ﻿using ETicaret.Entities;
 using ETicaret.Service.Abstract;
 using ETicaret.WebUI.Areas.Admin.Models;
+using ETicaret.WebUI.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETicaret.WebUI.Areas.Admin.Controllers
@@ -18,11 +19,11 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // GET: NewsController
         public ActionResult Index()
         {
-            var haber = new NewsModel()
+            var haber = new NewsListModel()
             {
                 Haberler = _service.GetAll()
             };
-           
+
             return View(haber);
         }
 
@@ -41,22 +42,46 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: NewsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(NewsModel news,IFormFile? Image)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    if (Image is not null) news.Image = await FileHelper.FileLoaderAsync(Image);
+                    var model = new News()
+                    {
+                        Name = news.Name,
+                        Content = news.Content,
+                        Image = news.Image,
+                        CreateDate = DateTime.Now
+                    };
+                    _service.Add(model);
+                    _service.SaveChanges();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(news);
         }
 
         // GET: NewsController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = _service.Find(id);
+            var haber = new NewsModel()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Content = model.Content,
+                Image = model.Image,
+                CreateDate = DateTime.Now
+            };
+            return View(haber);
         }
 
         // POST: NewsController/Edit/5
@@ -77,7 +102,16 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // GET: NewsController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = _service.Find(id);
+            var haber = new NewsModel()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Content = model.Content,
+                Image = model.Image,
+                CreateDate = DateTime.Now
+            };
+            return View(haber);
         }
 
         // POST: NewsController/Delete/5

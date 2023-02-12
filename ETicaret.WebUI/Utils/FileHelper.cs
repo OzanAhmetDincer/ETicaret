@@ -3,7 +3,7 @@
     public class FileHelper
     {
         /* Aşağıdaki kodda public dedik her yerden erişilsin diye, static, programımız çalışır çalışmaz bu classı çalıştırması için yazdık. İçinde buluduğu sınıftan nesne oluşturulmadan veya hiç bir nesneye referans olmadan kullanılabilen üyeler static olarak nitelendirilir. Metotlar ve alanlar static olarak tanımlanabilir. herhangi bir nesne oluşturulmadan önce çağırılması gerektiği için static olarak tanımlanmıştır. Başka bir deyişle de bir nesne metodun üreteceği sonucu etkilemeyecek ise o metot static olarak tanımlanır. Static olarak tanımlanan bir metoda program çalıştığı sürece erişilir, böylece sadece bir metot ile birden çok nesne çağırılır. async, asenkron olarak çalışcağını gösterir. Resim yükleme işlemini bir çok yerde yapacağımız için bunu bir metot olarak bir class içinde tanımladık. IFormFile resim yüklemek için kullanılan bir interface. formFile ile yükleme yapacağımız resmin ismini aldık. string filePath = "/wwwroot/Img/" : bu kod ile yükleyeceğimiz resimin nereye kayıt edileceğini gösterdik. */
-        public static async Task<string> FileLoaderAsync(IFormFile formFile, string filePath = "/Img" )
+        public static async Task<string> FileLoaderAsync(IFormFile formFile, string filePath = "/Img/" )
         {
             // string filePath' e bir başlangıç değeri atarız, eğer bir değer gelmezse varsayılan olarak ana dizinde "Img" klasörüne yüklensin dedik.
             var fileName = "";// fileName adında boş bir nesne oluşturduk.
@@ -18,7 +18,7 @@
             }
             return fileName;
         }
-        public static bool FileRemover(string fileName, string filePath = "/Img")
+        public static bool FileRemover(string fileName, string filePath = "/Img/")
         {
             string directory = Directory.GetCurrentDirectory() + "/wwwroot" + filePath + fileName;
             if (File.Exists(directory))// "File.Exists" dosya var mı yok mu onu kontrol eder
