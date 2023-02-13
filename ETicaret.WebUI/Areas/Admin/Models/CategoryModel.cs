@@ -27,9 +27,8 @@ namespace ETicaret.WebUI.Areas.Admin.Models
         [Display(Name = "Üst Kategori")]
         public int ParentId { get; set; }
 
-        [Display(Name = "Kategori Sıra No")]
+        [Display(Name = "Kategori Sıra No"), Required(ErrorMessage = "{0} alanı boş geçilemez!")]
         public int OrderNo { get; set; }
-        public int ProductId { get; set; }
         public virtual ICollection<Product>? Products { get; set; }
     }
 }

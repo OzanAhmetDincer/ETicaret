@@ -1,5 +1,4 @@
-﻿using ETicaret.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ETicaret.WebUI.Areas.Admin.Models
 {
@@ -7,10 +6,12 @@ namespace ETicaret.WebUI.Areas.Admin.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "Başlık"), Required(ErrorMessage = "{0} alanı boş geçilemez!"), StringLength(150)]
+        [Display(Name = "Başlık"), Required(ErrorMessage = "{0} alanı boş geçilemez!")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "Kategori için 4-100 arasında değer giriniz.")]
         public string Name { get; set; }
 
-        [Display(Name = "İçerik"), Required(ErrorMessage = "{0} alanı boş geçilemez!"), StringLength(500)]
+        [Display(Name = "İçerik"), Required(ErrorMessage = "{0} alanı boş geçilemez!")]
+        [StringLength(500, MinimumLength = 4, ErrorMessage = "Kategori için 4-500 arasında değer giriniz.")]
         public string Content { get; set; }
 
         [Display(Name = "Resim"), StringLength(150)]

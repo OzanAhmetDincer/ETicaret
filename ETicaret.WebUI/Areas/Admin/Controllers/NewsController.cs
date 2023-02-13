@@ -42,7 +42,7 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: NewsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(NewsModel news,IFormFile? Image)
+        public async Task<ActionResult> CreateAsync(NewsModel news, IFormFile? Image)
         {
             if (ModelState.IsValid)
             {
@@ -56,13 +56,12 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
                         Image = news.Image,
                         CreateDate = DateTime.Now
                     };
-                    _service.Add(model);
-                    _service.SaveChanges();
+                    await _service.AddAsync(model);
+                    await _service.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
                 catch
                 {
-
                     ModelState.AddModelError("", "Hata Oluştu!");
                 }
             }
@@ -70,9 +69,9 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         }
 
         // GET: NewsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> EditAsync(int id)
         {
-            var model = _service.Find(id);
+            var model = await _service.FindAsync(id);
             var haber = new NewsModel()
             {
                 Id = model.Id,
@@ -87,16 +86,31 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: NewsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync(int id, NewsModel news, IFormFile? Image)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    if (Image is not null) news.Image = await FileHelper.FileLoaderAsync(Image);
+                    var model = new News()
+                    {
+                        Id = news.Id,
+                        Name = news.Name,
+                        Content = news.Content,
+                        Image = news.Image,
+                        CreateDate = DateTime.Now
+                    };
+                     _service.Update(model);
+                    await _service.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(news);
         }
 
         // GET: NewsController/Delete/5
@@ -117,10 +131,13 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: NewsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteAsync(int id, News news)
         {
             try
             {
+                FileHelper.FileRemover(news.Image);
+                _service.Delete(news);
+                await _service.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch

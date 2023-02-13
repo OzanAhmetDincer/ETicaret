@@ -1,0 +1,72 @@
+﻿@model CategoryListModel
+
+@{
+    ViewData["Title"] = "Kategoriler";
+}
+
+<h1>Kategoriler</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Yeni Ekle</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Kategori Adı
+            </th>
+            <th>
+                Kategori Açıklaması
+            </th>
+            <th>
+                Kategori Resmi
+            </th>
+            <th>
+                Ekleme Tarihi
+            </th>
+            <th>
+                Durum
+            </th>
+            <th>
+                Üst Menü
+            </th>
+            <th>
+                Kategori Sırası
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Categories)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <img src="/Img/@item.Image" alt="@item.Name" height="50"  />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsTopMenu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderNo)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Düzenle</a> |
+
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
