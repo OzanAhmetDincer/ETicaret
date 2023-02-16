@@ -42,13 +42,13 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: NewsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(NewsModel news, IFormFile? Image)
+        public async Task<ActionResult> CreateAsync(NewsModel news, IFormFile? Image, string filePath = "/Img/News/")
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (Image is not null) news.Image = await FileHelper.FileLoaderAsync(Image);
+                    if (Image is not null) news.Image = await FileHelper.FileLoaderAsync(Image, filePath);
                     var model = new News()
                     {
                         Name = news.Name,
@@ -86,13 +86,13 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: NewsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, NewsModel news, IFormFile? Image)
+        public async Task<ActionResult> EditAsync(int id, NewsModel news, IFormFile? Image, string filePath = "/Img/News/")
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (Image is not null) news.Image = await FileHelper.FileLoaderAsync(Image);
+                    if (Image is not null) news.Image = await FileHelper.FileLoaderAsync(Image,filePath);
                     var model = new News()
                     {
                         Id = news.Id,
@@ -131,11 +131,11 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: NewsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteAsync(int id, News news)
+        public async Task<ActionResult> DeleteAsync(int id, News news, string filePath = "/Img/News/")
         {
             try
             {
-                FileHelper.FileRemover(news.Image);
+                FileHelper.FileRemover(news.Image, filePath);
                 _service.Delete(news);
                 await _service.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

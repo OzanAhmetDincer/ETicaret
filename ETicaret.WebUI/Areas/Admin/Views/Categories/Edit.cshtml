@@ -35,6 +35,7 @@
                 <label asp-for="Image" class="control-label"></label>
                 <input asp-for="Image" class="form-control" type="file"/>
                 <span asp-validation-for="Image" class="text-danger"></span>
+                <img src="/Img/Categories/@Model.Image" alt="@Model.Name" title="@Model.Name" height="100" />
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">

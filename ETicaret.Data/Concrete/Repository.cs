@@ -87,7 +87,7 @@ namespace ETicaret.Data.Concrete
             return await context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             context.Update(entity);
         }

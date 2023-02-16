@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ETicaret.Entities
+﻿namespace ETicaret.Entities
 {
     public class Cart : IEntity
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
-        public List<CartItem> CartItems { get; set; }
+        public string UserId { get; set; }// Oluşturulan cart'ın(alışveriş sepeti) hangi kullanıcıya ait olduğunu tanımlamak için
+        public List<CartItem> CartItems { get; set; }// "Cart" içerisine eklenen ürünlere gidebilmek için yazdık
     }
 }

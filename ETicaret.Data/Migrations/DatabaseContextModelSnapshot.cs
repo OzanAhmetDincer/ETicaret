@@ -418,7 +418,7 @@ namespace ETicaret.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2023, 2, 5, 17, 41, 53, 49, DateTimeKind.Local).AddTicks(5078),
+                            CreateDate = new DateTime(2023, 2, 16, 0, 23, 4, 539, DateTimeKind.Local).AddTicks(6916),
                             Email = "admin@ETicaret.com",
                             IsActive = true,
                             IsAdmin = true,

@@ -45,13 +45,13 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: CategoriesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(CategoryModel category, IFormFile? Image)
+        public async Task<ActionResult> CreateAsync(CategoryModel category, IFormFile? Image, string filePath = "/Img/Categories/")
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (Image is not null) category.Image = await FileHelper.FileLoaderAsync(Image);
+                    if (Image is not null) category.Image = await FileHelper.FileLoaderAsync(Image, filePath);
                     var kategori = new Category()
                     {
                         Name = category.Name,
@@ -99,7 +99,7 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: CategoriesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, CategoryModel category, IFormFile? Image)
+        public async Task<ActionResult> EditAsync(int id, CategoryModel category, IFormFile? Image, string filePath = "/Img/Categories/")
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
                 {
                     if (Image is not null)
                     {
-                        category.Image = await FileHelper.FileLoaderAsync(Image);
+                        category.Image = await FileHelper.FileLoaderAsync(Image, filePath);
                     }
                     var model = new Category()
                     {
@@ -156,11 +156,11 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: CategoriesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteAsync(int id, Category category)
+        public async Task<ActionResult> DeleteAsync(int id, Category category, string filePath = "/Img/Categories/")
         {
             try
             {
-                FileHelper.FileRemover(category.Image);
+                FileHelper.FileRemover(category.Image, filePath);
                 _categoryService.Delete(category);
                 await _categoryService.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
