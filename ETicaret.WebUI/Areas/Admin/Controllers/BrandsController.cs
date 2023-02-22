@@ -3,12 +3,13 @@ using ETicaret.Service.Abstract;
 using ETicaret.Service.Concrete;
 using ETicaret.WebUI.Areas.Admin.Models;
 using ETicaret.WebUI.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETicaret.WebUI.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
     public class BrandsController : Controller
     {
         private readonly IBrandService _brandService;
@@ -67,6 +68,30 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Hata Oluştu!");
                 }
             }
+            return View(brand);
+        }
+
+
+        // POST: BrandsController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create2(Brand brand, IFormFile? Logo)
+        {
+            if (ModelState.IsValid) // Model class ımız olan brand nesnesinin validasyon için koyduğumuz kurallarınıa (örneğin marka adı required-boş geçilemez gibi) uyulmuşsa
+            {
+                try
+                {
+                    brand.Logo = await FileHelper.FileLoaderAsync(Logo);
+                    _brandService.Add(brand);
+                    _brandService.SaveChanges();
+                    return RedirectToAction("Create", "Products");
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
+            }
+
             return View(brand);
         }
 

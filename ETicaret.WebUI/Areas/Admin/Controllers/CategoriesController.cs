@@ -3,13 +3,14 @@ using ETicaret.Service.Abstract;
 using ETicaret.Service.Concrete;
 using ETicaret.WebUI.Areas.Admin.Models;
 using ETicaret.WebUI.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ETicaret.WebUI.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
     public class CategoriesController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -66,6 +67,29 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
                     await _categoryService.AddAsync(kategori);
                     await _categoryService.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
+            }
+            ViewBag.ParentId = new SelectList(await _categoryService.GetAllAsync(), "Id", "Name");
+            return View(category);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create2(Category category, IFormFile? Image)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (Image is not null) category.Image = await FileHelper.FileLoaderAsync(Image);
+                    await _categoryService.AddAsync(category);
+                    await _categoryService.SaveChangesAsync();
+                    return RedirectToAction("Create", "Products");
                 }
                 catch
                 {

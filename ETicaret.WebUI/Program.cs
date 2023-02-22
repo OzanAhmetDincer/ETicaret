@@ -3,6 +3,7 @@ using ETicaret.Data.Abstract;
 using ETicaret.Data.Concrete;
 using ETicaret.Service.Abstract;
 using ETicaret.Service.Concrete;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,26 @@ builder.Services.AddTransient<ISliderService, SliderService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();// IHttpContextAccessor ile uygulama içerisindeki giriþ yapan kullanýcý, session verileri, cookie ler gibi içeriklere view lardan veya controllerdan ulaþabilmesini saðlar.
+
+// Authentication: oturum açma servisi
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
+{
+    x.LoginPath = "/Admin/Login"; // giriþ yapma sayfasý
+    x.AccessDeniedPath = "/AccessDenied";// giriþ yapan kullanýcýnýn admin yetkisi yoksa AccessDenied sayfasýna yönlendir
+    x.LogoutPath = "/Admin/Login/Logout";// çýkýþ sayfasý 
+    x.Cookie.Name = "Administrator";// oluþacak kukinin adý
+    x.Cookie.MaxAge = TimeSpan.FromDays(1);// oluþacak kukinin yaþam süresi
+});
+
+
+// Authorization : Yetkilendirme
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Role", "Admin"));
+    x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
+});
 
 var app = builder.Build();
 
@@ -47,6 +67,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//Authentication: oturum açma-giriþ yapma
+app.UseAuthentication(); // admin login için. UseAuthentication ýn UseAuthorization dan önce gelmesi zorunlu! 
+//Authorization: yetkilendirme (oturum açan kullanýcýnýn admine giriþ yetkisi var mý?)
 app.UseAuthorization();
 
 app.MapControllerRoute(

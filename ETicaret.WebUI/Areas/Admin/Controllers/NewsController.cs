@@ -2,11 +2,12 @@
 using ETicaret.Service.Abstract;
 using ETicaret.WebUI.Areas.Admin.Models;
 using ETicaret.WebUI.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETicaret.WebUI.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize]
     public class NewsController : Controller
     {
         private readonly IService<News> _service;
