@@ -26,8 +26,8 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg"><b>Bilgilerinizi Giriniz</b></p>
-
-                <form action="/Admin/Main" method="post">
+                @*action="/Admin/Main" method="post"*@
+                <form asp-action="Index">
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email">
                         <div class="input-group-append">
@@ -77,8 +77,6 @@
     <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/admin/dist/js/adminlte.min.js"></script>
-
-
 </body>
 </html>
 
