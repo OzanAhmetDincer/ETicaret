@@ -118,13 +118,13 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
                 {
                     if (resmisil == true)
                     {
-                        FileHelper.FileRemover(product.Image, filePath: "/wwwroot/Img/Products/");
+                        FileHelper.FileRemover(product.Image, filePath);
                         product.Image = string.Empty;
                     }
                     if (Image is not null)
                     {
-                        FileHelper.FileRemover(product.Image, filePath: "/wwwroot/Img/Products/");
-                        product.Image = await FileHelper.FileLoaderAsync(Image, filePath: "/wwwroot/Img/Products/");
+                        FileHelper.FileRemover(product.Image, filePath);
+                        product.Image = await FileHelper.FileLoaderAsync(Image, filePath);
                     }
                     var urun = new Product()
                     {
@@ -170,7 +170,9 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
                 Price = model.Price,
                 Stock = model.Stock,
                 CategoryId = model.CategoryId,
-                BrandId = model.BrandId
+                Category = model.Category,
+                BrandId = model.BrandId,
+                Brand = model.Brand
             };
             ViewBag.CategoryId = new SelectList(await _categoryService.GetAllAsync(), "Id", "Name");
             ViewBag.BrandId = new SelectList(await _brandService.GetAllAsync(), "Id", "Name");
@@ -180,13 +182,13 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
         // POST: ProductsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Product product)
+        public async Task<ActionResult> DeleteAsync(int id, Product product, string filePath = "/Img/Products/")
         {
             try
             {
-                FileHelper.FileRemover(product.Image, filePath: "/wwwroot/Img/Products/");
+                FileHelper.FileRemover(product.Image, filePath);
                 _productService.Delete(product);
-                _productService.SaveChangesAsync();
+                await _productService.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch

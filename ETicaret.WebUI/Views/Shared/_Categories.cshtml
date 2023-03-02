@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Category>
+@{
+}
+<!-- Categories Start -->
+<div class="container-fluid pt-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Kategoriler</span></h2>
+    <div class="row px-xl-5 pb-3">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a asp-controller="Categories" asp-action="Index" asp-route-id="@item.Id" class="text-decoration-none">
+                    <div class="cat-item d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="max-width: 150px; height: 150px;">
+                            <img class="img-fluid" src="/Img/Categories/@item.Image" alt="@item.Name" title="@item.Name">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>@item.Name</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+<!-- Categories End -->
