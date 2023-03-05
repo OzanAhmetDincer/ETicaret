@@ -42,9 +42,37 @@ namespace ETicaret.WebUI.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [Route("BizKimiz")]
+        public IActionResult AboutUs()
         {
             return View();
+        }
+
+        [Route("iletisim")]
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+
+        [Route("iletisim"), HttpPost]
+        public async Task<IActionResult> ContactUsAsync(Contact contact)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _contactService.AddAsync(contact);
+                    await _contactService.SaveChangesAsync();
+                    //TempData["Mesaj"] = "<div class='alert alert-success'>Mesajınız Gönderildi. Teşekkürler..</div>";
+                    // await MailHelper.SendMailAsync(contact); // ekrandan gönderilen mesajı mail ile gönderme
+                    return RedirectToAction("ContactUs");
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("", "Hata Oluştu! Mesajınız Gönderilemedi!");
+                }
+            }
+            return View(contact);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

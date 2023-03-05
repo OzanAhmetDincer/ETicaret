@@ -11,10 +11,10 @@ namespace ETicaret.WebUI.Areas.Admin.Models
         [Required(ErrorMessage = "{0} alanı boş geçilemez!"), StringLength(50), Display(Name = "Soyad")]
         public string SurName { get; set; }
 
-        [Required(ErrorMessage = "{0} alanı boş geçilemez!"), EmailAddress, StringLength(50), DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "{0} alanı boş geçilemez!"), StringLength(50), EmailAddress]
         public string Email { get; set; }
 
-        [Display(Name = "Telefon"), StringLength(20)]
+        [Display(Name = "Telefon"), StringLength(20), DataType(DataType.PhoneNumber)]
         public string? Phone { get; set; }
 
         [Required(ErrorMessage = "{0} alanı boş geçilemez!"), Display(Name = "Mesaj"), StringLength(500)]

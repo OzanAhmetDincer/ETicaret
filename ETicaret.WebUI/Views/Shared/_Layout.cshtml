@@ -27,13 +27,13 @@
 </head>
 <body>
     <!-- Topbar Start -->
-    <div class="container-fluid">
+    <div class="container-fluid sticky-top">
         <div class="row bg-secondary py-1 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center h-100">
-                    <a class="text-body mr-3" href="">Hakkımızda</a>
-                    <a class="text-body mr-3" href="">İletişim</a>
-                    <a class="text-body mr-3" href="">Yardım</a>
+                    <a class="text-body mr-3" href="/BizKimiz">Hakkımızda</a>
+                    <a class="text-body mr-3" href="/iletisim">İletişim</a>
+                    <a class="text-body mr-3" href="#">Yardım</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
+        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex ">
             <div class="col-lg-4">
                 <a href="/" class="text-decoration-none">
                     <span class="h1 text-uppercase text-primary bg-dark px-2">Sarı</span>
@@ -102,15 +102,15 @@
                                 <a href="" class="dropdown-item">Bebek Giyim</a>
                             </div>
                         </div>
-                        <a href="" class="nav-item nav-link">Shirts</a>
-                        <a href="" class="nav-item nav-link">Jeans</a>
-                        <a href="" class="nav-item nav-link">Swimwear</a>
-                        <a href="" class="nav-item nav-link">Sleepwear</a>
-                        <a href="" class="nav-item nav-link">Sportswear</a>
-                        <a href="" class="nav-item nav-link">Jumpsuits</a>
-                        <a href="" class="nav-item nav-link">Blazers</a>
-                        <a href="" class="nav-item nav-link">Jackets</a>
-                        <a href="" class="nav-item nav-link">Shoes</a>
+                        <a href="" class="nav-item nav-link">Gömlek</a>
+                        <a href="" class="nav-item nav-link">Kot</a>
+                        <a href="" class="nav-item nav-link">Mayo</a>
+                        <a href="" class="nav-item nav-link">Pijama</a>
+                        <a href="" class="nav-item nav-link">Spor giyim</a>
+                        <a href="" class="nav-item nav-link">Tulum</a>
+                        <a href="" class="nav-item nav-link">Blazer</a>
+                        <a href="" class="nav-item nav-link">Ceket</a>
+                        <a href="" class="nav-item nav-link">Ayakkabı</a>
                     </div>
                 </nav>
             </div>
@@ -126,7 +126,8 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link active">Anasayfa</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
+                            @await Component.InvokeAsync("Categories")
+                            @*<a href="shop.html" class="nav-item nav-link">Shop</a>
                             <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
@@ -134,8 +135,8 @@
                                     <a href="cart.html" class="dropdown-item">Shopping Cart</a>
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
                                 </div>
-                            </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            </div>*@
+                            <a href="/iletisim" class="nav-item nav-link">İletişim</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="" class="btn px-0">
@@ -153,23 +154,25 @@
         </div>
     </div>
     <!-- Navbar End -->
+
     <div class="">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
         <div class="row px-xl-5 pt-5">
             <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
                 <h5 class="text-secondary text-uppercase mb-4">Bize Ulaşın</h5>
                 <div class="d-flex flex-column justify-content-start">
-                    <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Biz Kimiz</a>
-                    <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Ana Sayfa</a>
-                    <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>İletişim</a>
+                    <a class="text-secondary mb-2" href="/BizKimiz"><i class="fa fa-angle-right mr-2"></i>Biz Kimiz</a>
+                    <a class="text-secondary mb-2" href="/"><i class="fa fa-angle-right mr-2"></i>Ana Sayfa</a>
+                    <a class="text-secondary mb-2" href="/iletisim"><i class="fa fa-angle-right mr-2"></i>İletişim</a>
                 </div>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Caddesi, kışım Sokak, Kadıköy İSTANBUL</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Caddesi, Kışım Sokak, Kadıköy İSTANBUL</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i><a href="mailto:info@example.com">info@example.com</a></p>
                 <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+0212 212 1212</p>
             </div>
             <div class="col-lg-8 col-md-12">
@@ -177,9 +180,9 @@
                     <div class="col-md-4 mb-5">
                         <h5 class="text-secondary text-uppercase mb-4">MARKALAR</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Marka 1</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Marka 2</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Marka 3</a>
+                            <a class="text-secondary mb-2" href="/Brands/Index/1"><i class="fa fa-angle-right mr-2"></i>Apple</a>
+                            <a class="text-secondary mb-2" href="/Brands/Index/2"><i class="fa fa-angle-right mr-2"></i>Oppo</a>
+                            <a class="text-secondary mb-2" href="/Brands/Index/3"><i class="fa fa-angle-right mr-2"></i>Casper</a>
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Marka 4</a>
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Marka 5</a>
                             <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Marka 6</a>
@@ -188,9 +191,9 @@
                     <div class="col-md-4 mb-5">
                         <h5 class="text-secondary text-uppercase mb-4">KATEGORİLER</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kategori 1</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kategori 2</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kategori 3</a>
+                            <a class="text-secondary mb-2" href="/Categories/Index/1"><i class="fa fa-angle-right mr-2"></i>Telefon</a>
+                            <a class="text-secondary mb-2" href="/Categories/Index/2"><i class="fa fa-angle-right mr-2"></i>Bilgisayar</a>
+                            <a class="text-secondary mb-2" href="/Categories/Index/3"><i class="fa fa-angle-right mr-2"></i>Kulaklık</a>
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kategori 4</a>
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kategori 5</a>
                             <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Kategori 6</a>
