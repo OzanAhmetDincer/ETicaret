@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ETicaret.WebUI.Areas.Admin.Models
+namespace ETicaret.WebUI.Models
 {
     public class RegisterModel
     {
@@ -19,7 +19,7 @@ namespace ETicaret.WebUI.Areas.Admin.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Compare("Password")]
+        [Compare("Password")]// Yukarıda tanımladığımız "Password" değişkeni ile karşılaştırma yapıp, aynı olup olmadığını kontrol edecek.
         public string RePassword { get; set; }
 
 

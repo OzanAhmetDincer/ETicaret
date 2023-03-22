@@ -66,7 +66,7 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(RegisterModel model)
+        public IActionResult Register(LoginAdminModel model)
         {
             return View();
         }
