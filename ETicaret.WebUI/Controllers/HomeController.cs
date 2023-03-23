@@ -36,12 +36,7 @@ namespace ETicaret.WebUI.Controllers
             };
             return View(model);
         }
-        [Route("AccessDenied")]
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
-
+        
         [Route("BizKimiz")]
         public IActionResult AboutUs()
         {

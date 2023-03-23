@@ -3,6 +3,7 @@ using ETicaret.Data.Abstract;
 using ETicaret.Data.Concrete;
 using ETicaret.Service.Abstract;
 using ETicaret.Service.Concrete;
+using ETicaret.WebUI.EmailServices;
 using ETicaret.WebUI.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -33,7 +34,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     //options.User.AllowedUserNameCharacters = "";(kullanýcý adý içerisinde kullanýlmasýný yada kullanýlmamasýný istediðiniz karakter tanýmlamasý yapýlýr)
     options.User.RequireUniqueEmail = true;// Her kullanýcýnýn bir birinden farklý email adresinin olmasý gerekiyor. Ayný mail adresi ile iki kullanýcý olamaz
 
-    options.SignIn.RequireConfirmedEmail = false;// Kullanýcý üye olduktan sonra mutlaka hesabýný onaylamasý lazým. Onay mailinden onaylama yapýlmasý lazým
+    options.SignIn.RequireConfirmedEmail = true;// Kullanýcý üye olduktan sonra mutlaka hesabýný onaylamasý lazým. Onay mailinden onaylama yapýlmasý lazým
     options.SignIn.RequireConfirmedPhoneNumber = false;// Kullanýcý üye olduktan sonra verdiði telefon üzerinden onay olmasý gerekmez, "true" olursa gerekiyor
 });
 
@@ -75,6 +76,15 @@ builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();// IHttpContextAccessor ile uygulama içerisindeki giriþ yapan kullanýcý, session verileri, cookie ler gibi içeriklere view lardan veya controllerdan ulaþabilmesini saðlar.
+
+// Eklediðimiz EmailServisini burada çaðýrýrýz. Bu service bizden SmtpEmailSender içerisindeki contractor altýndaki parametreleri göndermemiz gerekir. SmtpEmailSender'ý çaðýrdýðýmýz zaman bir nesne üretilecek ve nesne üretilirkende içerisindeki parametreleri aþaðýdaki gibi göndermemiz gerekiyor. Bu parametreleride appsettings içerisinden aldýk.
+builder.Services.AddScoped<IEmailSender, SmtpEmailSender>(i=> new SmtpEmailSender(
+    builder.Configuration["EmailSender:Host"],
+    builder.Configuration.GetValue<int>("EmailSender:Port"),
+    builder.Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+    builder.Configuration["EmailSender:UserName"],
+    builder.Configuration["EmailSender:Password"]
+    ));
 
 // Authentication: oturum açma servisi
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
