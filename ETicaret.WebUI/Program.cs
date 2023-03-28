@@ -78,7 +78,7 @@ builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();// IHttpContextAccessor ile uygulama içerisindeki giriþ yapan kullanýcý, session verileri, cookie ler gibi içeriklere view lardan veya controllerdan ulaþabilmesini saðlar.
 
 // Eklediðimiz EmailServisini burada çaðýrýrýz. Bu service bizden SmtpEmailSender içerisindeki contractor altýndaki parametreleri göndermemiz gerekir. SmtpEmailSender'ý çaðýrdýðýmýz zaman bir nesne üretilecek ve nesne üretilirkende içerisindeki parametreleri aþaðýdaki gibi göndermemiz gerekiyor. Bu parametreleride appsettings içerisinden aldýk.
-builder.Services.AddScoped<IEmailSender, SmtpEmailSender>(i=> new SmtpEmailSender(
+builder.Services.AddScoped<IEmailSender, SmtpEmailSender>(i => new SmtpEmailSender(
     builder.Configuration["EmailSender:Host"],
     builder.Configuration.GetValue<int>("EmailSender:Port"),
     builder.Configuration.GetValue<bool>("EmailSender:EnableSSL"),

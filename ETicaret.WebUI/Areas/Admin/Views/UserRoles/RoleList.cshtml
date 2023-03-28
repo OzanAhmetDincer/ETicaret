@@ -1,0 +1,49 @@
+﻿@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "Role Listesi";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="h3">Role Listesi</h1>
+        <hr>
+        <a class="btn btn-primary btn-sm" href="/Admin/UserRoles/RoleCreate">Role Ekle</a>
+        <table class="table table-bordered table-striped table-hover mt-3">
+            <thead>
+                <tr>
+                    <td style="width: 250px;">Id</td>
+                    <td>Role İsmi</td>
+                    <td style="width: 160px;"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @*Model içerisinde bir değer varsa yani count sıfırdan büyükse bunları aşağıda ki gibi foreach ile ekrana yazdırırız. Hiç bir role eklememişse else kod bloğu içerisindekileri ekrana getiririz.*@
+                @if (Model.Count() > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>
+                                @*<a href="/Admin/UserRoles/RoleEdit/@item.Id" class="btn btn-primary btn-sm mr-2">Düzenle</a>*@
+                                <a asp-action="RoleEdit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Düzenle</a>
+                                <form action="/Admin/UserRoles/delete" method="POST" style="display: inline;">
+                                    <input type="hidden" name="RoleId" value="@item.Id">
+                                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning"><h3>Her Hangi Bir Role Yok</h3></div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
