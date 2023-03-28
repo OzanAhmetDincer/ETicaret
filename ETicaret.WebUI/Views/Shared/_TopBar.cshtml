@@ -39,6 +39,10 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="#" class="dropdown-item" type="button">Siparişlerim</a>
                                 <a href="#" class="dropdown-item" type="button">Kullanıcı Bilgilerim</a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a href="/Admin/Main" class="dropdown-item" type="button">Admin Sayfası</a>
+                                }
                                 <a href="/account/logout" class="dropdown-item" type="button">Çıkış Yap</a>
                             </div>
                         </div>

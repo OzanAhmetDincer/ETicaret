@@ -1,8 +1,62 @@
 ﻿@{
     ViewData["Title"] = "Erişim Engellendi";
+    Layout = null;
 }
-<h1>@ViewData["Title"]</h1>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/404Page/StyleSheet.css" rel="stylesheet">
+</head>
+<body class="bg-purple">
 
-<h3 class="bg-danger text-white p-5">
-    Bu alana erişim yetkiniz bulunmamaktadır!
-</h3>
+    <div class="stars">
+        <div class="custom-navbar">
+            
+            <div class="navbar-links">
+                <ul>
+                    <li><a href="/BizKimiz" target="_blank">Hakkımızda</a></li>
+                    <li><a href="/iletisim" target="_blank">İletişim</a></li>
+                    <li><a href="/Account/Login" class="btn-request">Giriş</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="central-body">
+            <img class="image-404" src="https://www.euas.gov.tr/images/404.svg" width="300px">
+            <p><b>Baboş Yanlış Sayfa...</b></p>
+            <a href="/" class="btn-go-home">Ana Sayfa</a>
+        </div>
+        <div class="objects">
+            <img class="object_rocket" src="http://salehriaz.com/404Page/img/rocket.svg" width="40px">
+            <div class="earth-moon">
+                <img class="object_earth" src="http://salehriaz.com/404Page/img/earth.svg" width="100px">
+                <img class="object_moon" src="http://salehriaz.com/404Page/img/moon.svg" width="80px">
+            </div>
+            <div class="box_astronaut">
+                <img class="object_astronaut" src="http://salehriaz.com/404Page/img/astronaut.svg" width="140px">
+            </div>
+        </div>
+        <div class="glowing_stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+<!--
+VIEW IN FULL SCREEN MODE
+FULL SCREEN MODE: http://salehriaz.com/404Page/404.html
+
+DRIBBBLE: https://dribbble.com/shots/4330167-404-Page-Lost-In-Space
+-->
+

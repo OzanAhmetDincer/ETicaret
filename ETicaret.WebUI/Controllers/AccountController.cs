@@ -242,7 +242,7 @@ namespace ETicaret.WebUI.Controllers
         }
 
 
-        [Route("AccessDenied")]
+        
         public IActionResult AccessDenied()
         {
             return View();

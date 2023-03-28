@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ETicaret.WebUI.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize]
+    [Area("Admin"), Authorize(Roles ="Admin")]
     public class UserRolesController : Controller
     {
         //RoleManager'i de User'da olduğu gibi Identity klasörü içindeki gibi genişletip kullanabilirsin. Biz şimdi tüm işlemleri temel sınıf olan "IdentityRole" üzerinden yapıcaz.
