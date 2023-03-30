@@ -86,25 +86,8 @@ builder.Services.AddScoped<IEmailSender, SmtpEmailSender>(i => new SmtpEmailSend
     builder.Configuration["EmailSender:Password"]
     ));
 
-//// Authentication: oturum açma servisi
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
-//{
-//    x.LoginPath = "/Admin/Login"; // giriþ yapma sayfasý
-//    x.AccessDeniedPath = "/AccessDenied";// giriþ yapan kullanýcýnýn admin yetkisi yoksa AccessDenied sayfasýna yönlendir
-//    x.LogoutPath = "/Admin/Login/Logout";// çýkýþ sayfasý 
-//    x.Cookie.Name = "Administrator";// oluþacak kukinin adý
-//    x.Cookie.MaxAge = TimeSpan.FromDays(1);// oluþacak kukinin yaþam süresi
-//});
-
-
-//// Authorization : Yetkilendirme
-//builder.Services.AddAuthorization(x =>
-//{
-//    x.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Role", "Admin"));
-//    x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
-//});
-
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -123,6 +106,7 @@ app.UseRouting();
 app.UseAuthentication(); // admin login için. UseAuthentication ýn UseAuthorization dan önce gelmesi zorunlu! 
 //Authorization: yetkilendirme (oturum açan kullanýcýnýn admine giriþ yetkisi var mý?)
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "admin",

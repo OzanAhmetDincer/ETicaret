@@ -17,7 +17,7 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
             _roleManager = roleManager;
             _userManager = userManager;
         }
-
+        //[AllowAnonymous] => Bu özellik ile admin olsun olmasın üye olsun yada olmasın herkes login olmadan RoleList'i gerebilir. Url'den Admin/UserRoles/RoleList ile gider yada a etiketi ile yönlendirme yaparakta herkese açık yapılabilir. 
         public IActionResult RoleList()
         {
             // IdentityRole'den türettiğimiz _roleManager üzerinden tüm rolleri listeleriz.

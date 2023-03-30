@@ -8,81 +8,59 @@
                 <a class="text-body mr-3" href="#">Yardım</a>
             </div>
         </div>
-        @*<div class="col-lg-6 text-center text-lg-right">
-        <div class="d-inline-flex align-items-center">
-        <div class="btn-group">
-        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Giriş Yap </button>
-        <div class="dropdown-menu dropdown-menu-right">
-        <button class="dropdown-item" type="button">Giriş Yap</button>
-        <button class="dropdown-item" type="button">Üye Ol</button>
-        </div>
-        </div>
-        </div>
-        <div class="d-inline-flex align-items-center d-block d-lg-none">
-        <a href="" class="btn px-0 ml-2">
-        <i class="fas fa-heart text-dark"></i>
-        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-        </a>
-        <a href="" class="btn px-0 ml-2">
-        <i class="fas fa-shopping-cart text-dark"></i>
-        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-        </a>
-        </div>
-        </div>*@
-        @{
-            if (User.Identity.IsAuthenticated)
-            {
-                <div class="col-lg-6 text-center text-lg-right">
-                    <div class="d-inline-flex align-items-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">@User.Identity.Name </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="#" class="dropdown-item" type="button">Siparişlerim</a>
-                                <a href="#" class="dropdown-item" type="button">Kullanıcı Bilgilerim</a>
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <a href="/Admin/Main" class="dropdown-item" type="button">Admin Sayfası</a>
-                                }
-                                <a href="/account/logout" class="dropdown-item" type="button">Çıkış Yap</a>
-                            </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">@User.Identity.Name </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#" class="dropdown-item" type="button">Siparişlerim</a>
+                            <a href="#" class="dropdown-item" type="button">Kullanıcı Bilgilerim</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                @*Eğer giriş yapan kişi Admin ise admin sayfasına gidiş linkini görecek*@
+                                <a href="/Admin/Main" class="dropdown-item" type="button">Admin Sayfası</a>
+                            }
+                            <a href="/account/logout" class="dropdown-item" type="button">Çıkış Yap</a>
                         </div>
                     </div>
-                    <div class="d-inline-flex align-items-center d-block d-lg-none">
-                        <a href="#" class="btn px-0 ml-2">
-                            <i class="fas fa-heart text-dark"></i>
-                            <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                        </a>
-                        <a href="#" class="btn px-0 ml-2">
-                            <i class="fas fa-shopping-cart text-dark"></i>
-                            <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                        </a>
-                    </div>
                 </div>
-            }
-            else
-            {
-                <div class="col-lg-6 text-center text-lg-right">
-                    <div class="d-inline-flex align-items-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Giriş Yap </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="/account/login" class="dropdown-item" type="button">Giriş Yap</a>
-                                <a href="/account/register" class="dropdown-item" type="button">Üye Ol</a>
-                            </div>
+                <div class="d-inline-flex align-items-center d-block d-lg-none">
+                    <a href="#" class="btn px-0 ml-2">
+                        <i class="fas fa-heart text-dark"></i>
+                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    </a>
+                    <a href="#" class="btn px-0 ml-2">
+                        <i class="fas fa-shopping-cart text-dark"></i>
+                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    </a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Giriş Yap </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="/account/login" class="dropdown-item" type="button">Giriş Yap</a>
+                            <a href="/account/register" class="dropdown-item" type="button">Üye Ol</a>
                         </div>
                     </div>
-                    <div class="d-inline-flex align-items-center d-block d-lg-none">
-                        <a href="#" class="btn px-0 ml-2">
-                            <i class="fas fa-heart text-dark"></i>
-                            <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                        </a>
-                        <a href="#" class="btn px-0 ml-2">
-                            <i class="fas fa-shopping-cart text-dark"></i>
-                            <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                        </a>
-                    </div>
                 </div>
-            }
+                <div class="d-inline-flex align-items-center d-block d-lg-none">
+                    <a href="#" class="btn px-0 ml-2">
+                        <i class="fas fa-heart text-dark"></i>
+                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    </a>
+                    <a href="#" class="btn px-0 ml-2">
+                        <i class="fas fa-shopping-cart text-dark"></i>
+                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    </a>
+                </div>
+            </div>
         }
     </div>
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex ">

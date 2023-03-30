@@ -1,15 +1,34 @@
-﻿@model UserListModel
+﻿@model IEnumerable<ETicaret.WebUI.Identity.User>
 
 @{
     ViewData["Title"] = "Kullanıcılar";
 }
+@*datatables.net sitesinden aşağıdaki css ve js kodlarını alırız(bootstrap kullanarak datatables için özelleştirilmiş kodlarıda examples --> styling sayfasına giderek js ve css kodlarını alırız) ve table'a js fonksiyonundaki "myTable" ismini veririz(başka isimde yazabilirsin ikiside aynı olmak kaydıyla). Sayfa üzerindeki içerikler tablo şeklinde gelmiş olur. Herhangi bir değişiklik yapmak istersek datatables.net sayfasından bilgilere bakabiliriz. Fakat bu tarz sıralama sayfalarını kullanıcı sayfalarında çok kullanmamamız gerekir çünkü veri tabanında çok fazla kullanıcı olabilir. Bu kullanıcıları bir anda yükleyip daha sonra tarayıcı tarafında veri tabanından almak önemli. Çok fazla veriyi uygulamanın tarayıcısı tarafından js ile sayfalamak çok anlam ifade etmez*@
+@*Aşağıdaki gibi css özelliğini section içerisinde tanımlayıp _AdminLayout içerisinde RenderSectionAsync ile çağırabiliriz. Yada section kullanmadan bu undex sayfasına link'i olduğu gibi yazıp kullanabiliriz.*@
+@section Css
+    {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+}
+@section Scripts
+    {
+    <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+
+}
+
 
 <h1>Kullanıcılar</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-outline-primary">Yeni Ekle</a>
 </p>
-<table class="table table-striped table-hover">
+<table id="myTable" data-page-length='3' class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -25,60 +44,49 @@
                 Email
             </th>
             <th>
-                Telefon
-            </th>
-            <th>
-                Şifre
-            </th>
-            <th>
-                Durum
-            </th>
-            <th>
-                Admin
-            </th>
-            <th>
-                Eklenme Tarihi
+                Email Onay
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Users)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SurName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsAdmin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreateDate)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Düzenle</a> |
+        @{
+            if (Model.Count() > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    @*item üzerinden EmailConfirmed alanı eğer bize true değerini döndürüyorsa herhangi bir class yazma false değeri dönüyorsa class özelliğini "bg-warning" yap demiş olduk.*@
+                    <tr class="@(item.EmailConfirmed?"":"bg-warning")">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Düzenle</a> |
 
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
-                </td>
-            </tr>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    <h3>Kullanıcı Bulunmamaktadır</h3>
+                </div>
+            }
         }
     </tbody>
 </table>
+

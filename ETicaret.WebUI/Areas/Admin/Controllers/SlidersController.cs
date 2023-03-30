@@ -1,10 +1,8 @@
 ﻿using ETicaret.Entities;
 using ETicaret.Service.Abstract;
-using ETicaret.Service.Concrete;
 using ETicaret.WebUI.Areas.Admin.Models;
 using ETicaret.WebUI.Utils;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETicaret.WebUI.Areas.Admin.Controllers

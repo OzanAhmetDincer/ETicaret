@@ -8,21 +8,22 @@
 
 <h4>Kullanıcı Bilgileri</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="CreateDate" />
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-4">
+            @*<input type="hidden" asp-for="Id" />*@
+            <input type="hidden" asp-for="UserId" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurName" class="control-label"></label>
-                <input asp-for="SurName" class="form-control" />
-                <span asp-validation-for="SurName" class="text-danger"></span>
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
@@ -35,36 +36,36 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsAdmin" /> @Html.DisplayNameFor(model => model.IsAdmin)
-                </label>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
             </div>
-        </form>
+        </div>
+
+        <div class="col-md-4">
+            @foreach (var rolename in ViewBag.Roles)
+            {
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="selectedRoles" value="@rolename" id="@rolename"
+                    @(Model.SelectedRoles.Any(i => i == rolename) ? "checked" : "")>
+                    <label class="custom-control-label" for="@rolename">@rolename</label>
+                    @* Burada SelectedRoles'lerin hepsini tek tek dolaşacaz. Eğer aldığımız eleman ile yukarıdan gönderdiğimiz(Yani ViewBag.Roles içerisindeki rollerden eşleştiği varsa) eşit ise o elemana checked(seçili) özelliğini ekliyoruz.Örneğin kullanıcı veri tabanındaki rollerden 3 tanesini seçiyorsa bu bize SelectedRoles içerisinden gelecek ve gelen bilgiler üzerinden 3 tanesi seçili olacak.*@
+                </div>
+            }
+            <hr>
+            <div class="custom-control custom-checkbox">
+                @*Kullanıcıya mail göndermeden de onaylama işlemini yapmak için bu div'i ekledik*@
+                <input asp-for="EmailConfirmed" type="checkbox" class="custom-control-input">
+                <label asp-for="EmailConfirmed" class="custom-control-label"></label>
+            </div>
+        </div>
     </div>
-</div>
+</form>
 
 <div>
     <a asp-action="Index">Listeye Dön</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

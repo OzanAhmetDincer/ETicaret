@@ -4,32 +4,20 @@ namespace ETicaret.WebUI.Areas.Admin.Models
     public class UserModel
     {
         public int Id { get; set; }
+        public string UserId { get; set; }
 
         [Display(Name = "Ad"), StringLength(50), Required(ErrorMessage = "{0} alanı boş geçilemez!")]
-        public string Name { get; set; }
+        public string FirstName { get; set; }
 
         [Display(Name = "Soyad"), StringLength(50), Required(ErrorMessage = "{0} alanı boş geçilemez!")]
-        public string SurName { get; set; }
+        public string LastName { get; set; }
 
         [Display(Name = "Kullanıcı Adı"), StringLength(50), Required(ErrorMessage = "{0} alanı boş geçilemez!")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "{0} alanı boş geçilemez!"), EmailAddress, StringLength(50)]
         public string Email { get; set; }
-
-        [Display(Name = "Telefon"), StringLength(20)]
-        public string? Phone { get; set; }
-
-        [Display(Name = "Şifre"), StringLength(50), Required(ErrorMessage = "{0} alanı boş geçilemez")]
-        public string Password { get; set; }
-
-        [Display(Name = "Durum")]
-        public bool IsActive { get; set; }
-
-        [Display(Name = "Admin")]
-        public bool IsAdmin { get; set; }
-
-        [Display(Name = "Ekleme Tarihi"), ScaffoldColumn(false)]
-        public DateTime? CreateDate { get; set; } = DateTime.Now;
+        public bool EmailConfirmed { get; set; }
+        public IEnumerable<string> SelectedRoles { get; set; }// Kullanıcının seçmiş olduğu role bilgilerini sayfaya taşımak için oluşturduk. Kullanıcının o andaki seçmiş olduğu rol bilgileri
     }
 }
