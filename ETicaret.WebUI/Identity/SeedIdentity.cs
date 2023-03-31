@@ -5,7 +5,7 @@ namespace ETicaret.WebUI.Identity
 {
     public static class SeedIdentity
     {
-        public static async Task Seed(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ICartService cartService, IConfiguration configuration)
+        public static async Task Seed(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, /*ICartService cartService*/ IConfiguration configuration)
         {
             // "IConfiguration configuration" yapısını configürasyon işlemlerini yapabilmek için ekledik. Yani appsettings.json dosyası içerisine yazdığımız user bilgileri üzerinde işlem yapabilmek için ekledik. Configuration üzerinden appsettings'e ulaşıp o bilgileri oradan alıcaz.  
             var username = configuration["Data:AdminUser:username"];// appsettings.json dosyası içerisindeki Data altındaki AdminUser altındaki username'yi burada tanımlarız.

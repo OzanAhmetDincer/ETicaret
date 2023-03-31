@@ -5,12 +5,10 @@ using ETicaret.Service.Abstract;
 using ETicaret.Service.Concrete;
 using ETicaret.WebUI.EmailServices;
 using ETicaret.WebUI.Identity;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DatabaseContext>();// Entityframework iþlemlerini yapabilmek için bu satýrý ekliyoruz. Veritabaný yapýlandýrmasýný yapmýþ olduk.
@@ -62,7 +60,6 @@ builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IBrandRepository, BrandRepository>();
 builder.Services.AddTransient<IContactRepository, ContactRepository>();
 builder.Services.AddTransient<ISliderRepository, SliderRepository>();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 
@@ -71,7 +68,6 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IBrandService, BrandService>();
 builder.Services.AddTransient<IContactService, ContactService>();
 builder.Services.AddTransient<ISliderService, SliderService>();
-builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 
@@ -84,10 +80,15 @@ builder.Services.AddScoped<IEmailSender, SmtpEmailSender>(i => new SmtpEmailSend
     builder.Configuration.GetValue<bool>("EmailSender:EnableSSL"),
     builder.Configuration["EmailSender:UserName"],
     builder.Configuration["EmailSender:Password"]
-    ));
+));
 
 var app = builder.Build();
 
+//IConfiguration configuration = app.Configuration;
+//UserManager<User> userManager = app.;
+//RoleManager<IdentityRole> roleManager;
+//ICartService cartService = app.Services.GetRequiredService<ICartService>();
+//SeedIdentity.Seed(userManager, roleManager, cartService, configuration).Wait();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -120,4 +121,14 @@ app.MapControllerRoute(
     name: "custom",
     pattern: "{customurl?}/{controller=Home}/{action=Index}/{id?}");
 
+
+var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (var scope = scopeFactory.CreateScope())
+{
+    var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+    /*var cartService = scope.ServiceProvider.GetRequiredService<ICartService>();*/
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+     SeedIdentity.Seed(userManager,roleManager,/*cartService*/configuration).Wait();// Asenkron olduðu için sonuna "Wait" ekledik
+}
 app.Run();

@@ -9,7 +9,6 @@ namespace ETicaret.Data
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Cart> Carts { get; set; }
@@ -25,21 +24,22 @@ namespace ETicaret.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Veri tabanına eklemek istediğimiz bilgileri bu metot içerisine yazarız. Aşağıdaki örnek gibi
 
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = 1,
-                    Phone = "",
-                    Email = "admin@ETicaret.com",
-                    IsActive = true,
-                    IsAdmin = true,
-                    Name = "admin",
-                    SurName = "admin",
-                    UserName = "admin",
-                    Password = "123"
-                }
-                );
+            //modelBuilder.Entity<User>().HasData(
+            //    new User
+            //    {
+            //        Id = 1,
+            //        Phone = "",
+            //        Email = "admin@ETicaret.com",
+            //        IsActive = true,
+            //        IsAdmin = true,
+            //        Name = "admin",
+            //        SurName = "admin",
+            //        UserName = "admin",
+            //        Password = "123"
+            //    }
+            //    );
 
             base.OnModelCreating(modelBuilder);
 

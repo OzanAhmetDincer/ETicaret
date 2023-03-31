@@ -13,8 +13,8 @@ namespace ETicaret.WebUI.Areas.Admin.Controllers
     public class UsersController : Controller
     {
         private RoleManager<IdentityRole> _roleManager;
-        private UserManager<Identity.User> _userManager;
-        public UsersController(RoleManager<IdentityRole> roleManager, UserManager<Identity.User> userManager)
+        private UserManager<User> _userManager;
+        public UsersController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
