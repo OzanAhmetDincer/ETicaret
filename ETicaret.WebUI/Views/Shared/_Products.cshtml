@@ -7,12 +7,26 @@
     <div class="product-item bg-light mb-4">
         <div class="product-img position-relative overflow-hidden">
             <img class="img-fluid w-100" src="/Img/Products/@item.Image" alt="@item.Name" title="@item.Name">
-            <div class="product-action">
-                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-            </div>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <div class="product-action">
+                        <a class="btn btn-outline-dark btn-square" href="/Cart/AddToCart"><i class="fa fa-shopping-cart"></i></a>
+                        <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
+                        <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
+                        <a class="btn btn-outline-dark btn-square" href="/Products/Search"><i class="fa fa-search"></i></a>
+                    </div>
+                }
+                else
+                {
+                    <div class="product-action">
+                        <a class="btn btn-outline-dark btn-square" href="/Account/Login"><i class="fa fa-shopping-cart"></i></a>
+                        <a class="btn btn-outline-dark btn-square" href="/Account/Login"><i class="far fa-heart"></i></a>
+                        <a class="btn btn-outline-dark btn-square" href="/Account/Login"><i class="fa fa-sync-alt"></i></a>
+                        <a class="btn btn-outline-dark btn-square" href="/Account/Login"><i class="fa fa-search"></i></a>
+                    </div>
+                }
+            }
         </div>
         <div class="text-center py-4">
             <a class="h6 text-decoration-none text-truncate" href="/Products/Detail/@item.Id">@item.Name</a>
@@ -31,7 +45,3 @@
     </div>
 }
 <!-- Products End -->
-
-
-
-

@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<DatabaseContext>();// Entityframework iþlemlerini yapabilmek için bu satýrý ekliyoruz. Veritabaný yapýlandýrmasýný yapmýþ olduk.
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MsSqlConnection")));//ApplicationContext için connection string baðlamasý yaptýk. "Configuration" ile "appsettings.json" dosyasýna ulaþýrýz. "GetConnectionString" ile appsettings içerisindeki "ConnectionStrings" altýndaki verilere ulaþýrýz ve orada hangi connection string'i kullanacaksak onun ismini veririz.(SqlConnection).
 builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();// Oluþturduðumuz Identity'i projeye dahil etmemiz gerekiyor. Identity klsöründe tanýmlamýþ olduðumuz "User"(kullanacaðýmýz kullanýcý bilgisi) ve "IdentityRole"(Kullanacaðýmýz role tablolarý için sýnýfý yazarýz. Bunu "IdentityRole" den türeyen bir class olarak oluþturabilirsinde, User'i "IdentityUser" class'ýndan türettiðimiz gibi. Biz burada temel sýnýfý kullandýk.) tablolarýný veriyoruz, "AddEntityFrameworkStores" ile kullanacaðýmýz veritabanýný tanýmlýyoruz. "AddDefaultTokenProviders" ile tokenprovider eklememizdeki sebep sadece bir parola resetleme iþlemleri gibi konularda bu benzersiz bir sayý üretir, onu mail olarak kullanýcýya göndeririz ve o benzersiz sayý ile beraber deðiþiklik iþlemini gerçekleþtirir. Bu gibi iþlemleri yapmamýzý saðlayan benzersiz bir sayý üretir.  
@@ -122,6 +123,8 @@ app.MapControllerRoute(
     pattern: "{customurl?}/{controller=Home}/{action=Index}/{id?}");
 
 
+// Proje canlýya alýnacaðý zaman içerisinde baþlangýç olarak kayýtlý olan bir kullanýcý ve bu kullanýcýya ait bilgileri Identity klasörü içerisinde SeedIdentity class'ý içerisinde tanýmladýk ve bunlarýn oluþabilmesi için aþaðýdaki yapýlandýrmalar yapýlar. Bu tanýmladýðýmýz bilgiler projeyi çalýþtýrdýðýmýz zaman oluþacak.
+// Appsetting.json içerisinden bir bilgiye ihtiyaç varsa configurtion tanýmlamasý yaparýz, Seed metodu için gerekli usermanager, rolemanager tanýmlamalarýný aþaðýda yaparýz.
 var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
 using (var scope = scopeFactory.CreateScope())
 {

@@ -148,6 +148,7 @@ namespace ETicaret.WebUI.Controllers
                 {
                     // Eğer onaylanma başarılı ise aşağıdaki mesajları göndeririz.
                     // cart objesini oluştur.
+                    // Mail onaylandıktan sonra Cart veri tabanına kullanıcının userıd'si ile yeni bir cart objesi tanımlarız ki kullanıcı sepete bir şey eklemek istediği zaman bir cart bilgisi olsun.
                     _cartService.InitializeCart(user.Id);
 
                     TempData.Put("message", new AlertMessage()
