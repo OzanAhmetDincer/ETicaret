@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ETicaret.Entities
+﻿namespace ETicaret.Entities
 {
     public class Order : IEntity
     {
@@ -19,7 +13,7 @@ namespace ETicaret.Entities
         public string Email { get; set; }// Siparişi alacak kişinin emaili
         public string Phone { get; set; }// Siparişi alacak kişinin telefonu
         public string Note { get; set; }// Sipariş notu
-        public string PaymentId { get; set; }
+        public string PaymentId { get; set; }// Satış yapıldıktan sonra oluşacak Id, Ödeme Id'si
         public string ConversationId { get; set; }
         public List<OrderItem> OrderItems { get; set; }// Kullanıcının siparişte hangi ürünleri verdiğini görmek için
         public EnumPaymentType PaymentType { get; set; }

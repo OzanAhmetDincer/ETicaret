@@ -12,6 +12,7 @@ namespace ETicaret.Data.Concrete
 
         public void ClearCart(int cartId)
         {
+            // CartItems üzerinden gönderilen CartId bilgisine göre silme işlemini yaparız
             var cmd = @"delete from CartItems where CartId=@p0"; 
             context.Database.ExecuteSqlRaw(cmd,cartId);
         }
