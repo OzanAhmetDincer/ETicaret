@@ -1,4 +1,5 @@
-﻿using ETicaret.Entities;
+﻿using ETicaret.Data.Configurations;
+using ETicaret.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ETicaret.Data
@@ -26,20 +27,10 @@ namespace ETicaret.Data
         {
             // Veri tabanına eklemek istediğimiz bilgileri bu metot içerisine yazarız. Aşağıdaki örnek gibi
 
-            //modelBuilder.Entity<User>().HasData(
-            //    new User
-            //    {
-            //        Id = 1,
-            //        Phone = "",
-            //        Email = "admin@ETicaret.com",
-            //        IsActive = true,
-            //        IsAdmin = true,
-            //        Name = "admin",
-            //        SurName = "admin",
-            //        UserName = "admin",
-            //        Password = "123"
-            //    }
-            //    );
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());// Configuration klasörü içerisindeki ProductConfiguration'i burada tanımladık. ProductConfiguration içerisindeki özellikleri direk burayada yazabiliriz fakat DatabaseContext içerisi karmaşık olur.
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+
+            modelBuilder.Seed();// ModelBuilderExtensions class'ında tanımdalığımız Seed metodunu çağırırız ve içerisindeki verileri veri tabanına ekleriz.
 
             base.OnModelCreating(modelBuilder);
 

@@ -1,5 +1,4 @@
 ﻿using ETicaret.Service.Abstract;
-using ETicaret.Service.Concrete;
 using ETicaret.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 

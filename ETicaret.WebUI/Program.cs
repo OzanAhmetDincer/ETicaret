@@ -63,6 +63,8 @@ builder.Services.AddTransient<IContactRepository, ContactRepository>();
 builder.Services.AddTransient<ISliderRepository, SliderRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+//builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
 
 builder.Services.AddTransient<ICartService, CartService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
@@ -82,14 +84,7 @@ builder.Services.AddScoped<IEmailSender, SmtpEmailSender>(i => new SmtpEmailSend
     builder.Configuration["EmailSender:UserName"],
     builder.Configuration["EmailSender:Password"]
 ));
-
 var app = builder.Build();
-
-//IConfiguration configuration = app.Configuration;
-//UserManager<User> userManager = app.;
-//RoleManager<IdentityRole> roleManager;
-//ICartService cartService = app.Services.GetRequiredService<ICartService>();
-//SeedIdentity.Seed(userManager, roleManager, cartService, configuration).Wait();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -129,9 +124,9 @@ var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
 using (var scope = scopeFactory.CreateScope())
 {
     var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-    /*var cartService = scope.ServiceProvider.GetRequiredService<ICartService>();*/
+    var cartService = scope.ServiceProvider.GetRequiredService<ICartService>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-     SeedIdentity.Seed(userManager,roleManager,/*cartService*/configuration).Wait();// Asenkron olduðu için sonuna "Wait" ekledik
+    SeedIdentity.Seed(userManager, roleManager, cartService, configuration).Wait();// Asenkron olduðu için sonuna "Wait" ekledik
 }
 app.Run();

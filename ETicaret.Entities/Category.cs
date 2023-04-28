@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ETicaret.Entities
+﻿namespace ETicaret.Entities
 {
     public class Category : IEntity
     {
@@ -13,9 +11,7 @@ namespace ETicaret.Entities
         public bool IsTopMenu { get; set; }
         public int ParentId { get; set; }
         public int OrderNo { get; set; }
-        public int ProductId { get; set; }
+        //public int ProductId { get; set; }
         public virtual ICollection<Product>? Products { get; set; }
-
-
     }
 }

@@ -7,7 +7,7 @@ namespace ETicaret.WebUI.Identity
     public class ApplicationContext : IdentityDbContext<User>
     {
         // constractor metodu ile dışarıdan bazı parametreler göndericez.  
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) // ilk tanımlamış olduğumuz "options" ı base "options" a göndeririz.
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) // ilk tanımlamış olduğumuz "options" ı base "options" a göndeririz yani temel sınıfa
         {
 
         }

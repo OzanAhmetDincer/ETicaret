@@ -17,23 +17,13 @@
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">MARKALAR</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="/Brands/Index/1"><i class="fa fa-angle-right mr-2"></i>Apple</a>
-                        <a class="text-secondary mb-2" href="/Brands/Index/2"><i class="fa fa-angle-right mr-2"></i>Oppo</a>
-                        <a class="text-secondary mb-2" href="/Brands/Index/3"><i class="fa fa-angle-right mr-2"></i>Casper</a>
-                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Marka 4</a>
-                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Marka 5</a>
-                        <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Marka 6</a>
+                        @await Component.InvokeAsync("Brands")
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">KATEGORİLER</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="/Categories/Index/1"><i class="fa fa-angle-right mr-2"></i>Telefon</a>
-                        <a class="text-secondary mb-2" href="/Categories/Index/2"><i class="fa fa-angle-right mr-2"></i>Bilgisayar</a>
-                        <a class="text-secondary mb-2" href="/Categories/Index/3"><i class="fa fa-angle-right mr-2"></i>Kulaklık</a>
-                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kategori 4</a>
-                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kategori 5</a>
-                        <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Kategori 6</a>
+                        @await Component.InvokeAsync("Categories1")
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">

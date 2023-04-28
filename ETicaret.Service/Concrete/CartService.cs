@@ -14,6 +14,13 @@ namespace ETicaret.Service.Concrete
         {
             _cartRepository = cartRepository;
         }
+
+
+        /*private readonly IUnitOfWork _unitofwork;
+        public CartService(IUnitOfWork unitofwork)
+        {
+            _unitofwork = unitofwork;
+        }*/
         public void AddToCart(string userId, int productId, int quantity)
         {
             var cart = GetCartByUserId(userId);// Aşağıda ki GetCartByUserId metodu ile login olan kullanıcının cart bilgisini almıştık burada onu kullanabiliriz.
@@ -38,9 +45,11 @@ namespace ETicaret.Service.Concrete
                     // Liste içerisinde eklemek istediğimiz ürün varsa yani index>0 ise cart içerisindeki CartItem'a index bilgisini vererek hangi üründe değişiklik yapılacağını belirtiriz ve kayırlı olan Quantity bilgisi ile dışarıdan gönderdiğimiz quantity bilgisini toplarız.
                     cart.CartItems[index].Quantity += quantity;
                 }
-
                 _cartRepository.Update(cart);
                 _cartRepository.SaveChanges();
+
+                /*_unitofwork.Carts.Update(cart);
+                _unitofwork.Save();*/
 
             }
         }
@@ -48,6 +57,7 @@ namespace ETicaret.Service.Concrete
         public void ClearCart(int cartId)
         {
             _cartRepository.ClearCart(cartId);
+            //_unitofwork.Carts.ClearCart(cartId);
         }
 
         public void DeleteFromCart(string userId, int productId)
@@ -56,19 +66,22 @@ namespace ETicaret.Service.Concrete
             if (cart != null)
             {
                 _cartRepository.DeleteFromCart(cart.Id, productId);
+                //_unitofwork.Carts.DeleteFromCart(cart.Id, productId);
             }
         }
 
         public Cart GetCartByUserId(string userId)
         {
             return _cartRepository.GetByUserId(userId);
+            //return _unitofwork.Carts.GetByUserId(userId);
         }
 
         public void InitializeCart(string userId)
         {
-            // _cartRepository.Create(new Cart(){UserId = userId});
             _cartRepository.Add(new Cart() { UserId = userId });
             _cartRepository.SaveChanges();
+            /*_unitofwork.Carts.Add(new Cart() { UserId = userId });
+            _unitofwork.Save();*/
         }
     }
 }

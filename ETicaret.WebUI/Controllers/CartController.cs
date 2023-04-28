@@ -16,9 +16,9 @@ namespace ETicaret.WebUI.Controllers
     [Authorize]
     public class CartController : Controller
     {
-        private ICartService _cartService;
-        private IOrderService _orderService;
-        private UserManager<User> _userManager;
+        private readonly ICartService _cartService;
+        private readonly IOrderService _orderService;
+        private readonly UserManager<User> _userManager;
         public CartController(IOrderService orderService, ICartService cartService, UserManager<User> userManager)
         {
             _cartService = cartService;
@@ -27,7 +27,7 @@ namespace ETicaret.WebUI.Controllers
         }
         public IActionResult Index()
         {
-            // Bu metotda login kullanıcının cart bilgilerini ekrana getiririz. Bunu ilk başta kullanıcının userId'sini alırız, userId üzerinden de cartId'sini alırız. cartId bilgisi ile de cartItem'daki ilgili cart ile ilişkilendirilen ürünleri ve bilgilerini alırız. 
+            // Bu metotda login olan kullanıcının cart bilgilerini ekrana getiririz. Bunu ilk başta kullanıcının userId'sini alırız, userId üzerinden de cartId'sini alırız. cartId bilgisi ile de cartItem'daki ilgili cart ile ilişkilendirilen ürünleri ve bilgilerini alırız. 
             //_userManager.GetUserId(User) ile userManager üzerinden GetUserId metodu ile ilgili kullanıcının userId'si gelmiş olur. Burada GetUserId metodu içerisine verdiğimiz "User" veri tabanından aldığımız bir user değil sadece kullanıcı için oluşturulan bir sessiondur. Bu ıd üzerinden de _cartService içerisindeki cartId'sine ulaşırız.
             var cart = _cartService.GetCartByUserId(_userManager.GetUserId(User));
             return View(new CartModel()
@@ -50,6 +50,28 @@ namespace ETicaret.WebUI.Controllers
         {
             var userId = _userManager.GetUserId(User);
             _cartService.AddToCart(userId, productId, quantity);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateQuantity(int productId, int quantity)
+        {
+            var cart = _cartService.GetCartByUserId(_userManager.GetUserId(User));
+            var cartItem = cart.CartItems.FirstOrDefault(i => i.ProductId == productId);
+            if (cartItem != null)
+            {
+                // Kullanıcı alışveriş sepetinde bir güncelleme aldığı ürünün miktarında değişiklik yapacak ise bu değişikliği veri tabanına kayıt etmemiz gerek. Yukarıda _cartService üzerinden kullanıcının cart bilgisini alırız. Buradan CartItemslara gideriz ve FirstOrDefault metodu ile değişiklik yapılacak ürünü sayfadan gönderilen productId bilgisi ile buluruz. Sonrasında aşağıdaki if bloğu içerisinde yazılan komut ile eğer veri tabanındaki Quantity değeri ekrandan gelen quantity değerinden büyük ise yani kullanıcı miktarı azaltmak isterse çalışacak else bloğuda arttırma yapcağı zaman çalışacak.
+                if (cartItem.Quantity > quantity)
+                {
+                    cartItem.Quantity = cartItem.Quantity - quantity - 1;
+                }
+                else
+                {
+                    cartItem.Quantity = cartItem.Quantity - quantity + 1;
+                }
+
+            }
+            _cartService.AddToCart(_userManager.GetUserId(User), productId, quantity);
             return RedirectToAction("Index");
         }
 

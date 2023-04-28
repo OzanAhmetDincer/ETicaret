@@ -14,8 +14,6 @@ namespace ETicaret.Data.Concrete
             context = _context;
             dbSet = context.Set<T>();// boş dbset i context içindeki ilgili class ın db seti için ayarladık
         }
-
-
         public int Add(T entity)
         {
             dbSet.Add(entity);
@@ -79,14 +77,13 @@ namespace ETicaret.Data.Concrete
 
         public int SaveChanges()
         {
-            return context.SaveChanges();   
+            return context.SaveChanges();
         }
 
         public async Task<int> SaveChangesAsync()
         {
             return await context.SaveChangesAsync();
         }
-
         public virtual void Update(T entity)
         {
             context.Update(entity);

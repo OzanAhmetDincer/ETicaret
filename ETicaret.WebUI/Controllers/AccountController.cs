@@ -11,7 +11,14 @@ namespace ETicaret.WebUI.Controllers
     [AutoValidateAntiforgeryToken]// Bu controllerdeki tüm post işlemlerinde validate token işlemleri yerine getirilir
     public class AccountController : Controller
     {
-        private UserManager<User> _userManager;// "UserManager" Microsoft Identity içerisinde olan bir yapı. UserManager'a kullanacağu "User(Identity klasöründeki)" bilgisini veririz. "_userManager" üzerinde kullanıcı oluşturma, login, parola sıfırlama gibi işlemlerimizi, metotlarımızı barındırıyor
+        /* Identity işlemlerini yapabilmek için belirli nuget paketlerinin yüklenmiş olması gerek
+            Microsoft.AspNetCore.Identity.EntityFrameworkCore
+            Microsoft.EntityFrameworkCore.SqlServer(hangi veri tabanını kullanıyorsan)
+            Microsoft.EntityFrameworkCore.Design
+            Microsoft.EntityFrameworkCore.Tools
+            Microsoft.AspNetCore.Identity.UI*/
+
+        private UserManager<User> _userManager;// "UserManager" Microsoft Identity içerisinde olan bir yapı. UserManager'a kullanacağı "User(Identity klasöründeki)" bilgisini veririz. "_userManager" üzerinde kullanıcı oluşturma, login, parola sıfırlama gibi işlemlerimizi, metotlarımızı barındırıyor
         private SignInManager<User> _signInManager;// "SignInManager" Microsoft Identity içerisinde olan bir yapı. Bu da cookie olaylarını yönetecek
         private IEmailSender _emailSender;
         private ICartService _cartService;

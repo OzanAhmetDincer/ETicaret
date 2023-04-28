@@ -7,5 +7,4 @@ namespace ETicaret.WebUI.Models
         public Product Product { get; set; }
         public List<Product>? Products { get; set; }
     }
-    
 }

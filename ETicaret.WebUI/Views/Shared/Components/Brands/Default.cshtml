@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Brand>
+@{
+}
+@foreach (var anaKategori in Model.Where(c => c.IsActive))
+{
+    <a class="text-secondary mb-2" href="/@anaKategori.Name.ToLower()/Brands/Index/@anaKategori.Id">
+        @anaKategori.Name <i class="fa fa-angle-right mr-2"></i>
+    </a>
+}

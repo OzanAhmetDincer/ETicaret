@@ -1,5 +1,4 @@
 ﻿using ETicaret.Service.Abstract;
-using ETicaret.Service.Concrete;
 using ETicaret.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,8 +26,6 @@ namespace ETicaret.WebUI.Controllers
                 Products = urun
             };
             return View(model);
-            //var model = await _productService.GetAllAsync(p => p.IsActive && p.Name.Contains(q));
-            //return View(model);
         }
 
         public async Task<ActionResult> DetailAsync(int id)
